@@ -18,10 +18,27 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   role: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Role',
     required: true,
-    enum: ['ADMIN', 'USER', 'COMPANY'],
-    default: 'USER'
+  },
+  birthdate: {
+    type: Date,
+    required: true,
+    validate: {
+      validator: function(value) {
+        const today = new Date()
+        const birthdate = new Date(value)
+        let age = today.getFullYear() - birthdate.getFullYear()
+        const monthDifference = today.getMonth() - birthdate.getMonth()
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthdate.getDate())) {
+          age--
+        }
+        return age >= 18
+      },
+      message: 'El usuario debe ser mayor de 18 años para poder registrarse'
+    }
+
   }
 }, {
   timestamps: true

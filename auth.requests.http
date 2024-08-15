@@ -1,0 +1,46 @@
+### LOGIN
+POST http://localhost:4000/api/login
+Content-Type: application/json
+credentials: 'include'
+
+{
+  "username": "Admin",
+  "password": "admin"
+}
+
+### REGISTER
+POST http://localhost:4000/api/register
+Content-Type: application/json
+credentials: 'include'
+
+{
+  "username": "Admin",
+  "email": "admin@admin.com",
+  "password": "admin",
+  "birthdate": "2000-01-01",
+  "role": "ADMIN"
+}
+
+### REGISTER
+POST http://localhost:4000/api/register
+Content-Type: application/json
+credentials: 'include'
+
+{
+  "username": "Admin2",
+  "email": "admin2@admin.com",
+  "password": "admin2",
+  "birthdate": "2000-01-01"
+}
+
+### PROFILE
+GET http://localhost:4000/api/profile
+credentials: 'include'
+
+### VERIFY TOKEN
+GET http://localhost:4000/api/verify
+credentials: 'include'
+
+### LOGOUT
+POST http://localhost:4000/api/logout
+credentials: 'include'

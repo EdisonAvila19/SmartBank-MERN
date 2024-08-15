@@ -1,0 +1,27 @@
+### Get all Transactions
+GET http://localhost:4000/api/transactions/66bd514452831fe7a0951f2f
+credentials: 'include'
+
+### Create Transaction
+POST http://localhost:4000/api/transactions
+Content-Type: application/json
+credentials: 'include'
+
+{
+  "sourceAccount": "66bd4fcc89ce2aa21fe5b6a2",
+  "destinationAccount": "66bd514452831fe7a0951f2f",
+  "amount": 500,
+  "description": "Transaction description"
+}
+
+### Create Transaction
+POST http://localhost:4000/api/transactions
+Content-Type: application/json
+credentials: 'include'
+
+{
+  "sourceAccount": "66bd514452831fe7a0951f2f",
+  "destinationAccount": "66bd526155651232b666a39a",
+  "amount": 50,
+  "description": "Transaction description"
+}

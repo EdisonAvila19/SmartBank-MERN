@@ -1,0 +1,29 @@
+### GET ALL ACCOUNTS
+GET http://localhost:4000/api/accounts
+credentials: 'include'
+
+### GET ACCOUNT BY ID
+GET http://localhost:4000/api/accounts/66bd4fcc89ce2aa21f
+credentials: 'include'
+
+### CREATE ACCOUNT
+POST http://localhost:4000/api/accounts
+Content-Type: application/json
+credentials: 'include'
+
+{
+  "accounttype": "CTAAHORROS"
+}
+
+### UPDATE ACCOUNT
+PUT http://localhost:4000/api/accounts/5f8c6a1c0a0e0c1b0d1d
+Content-Type: application/json
+credentials: 'include'
+
+{
+  "accounttype": "CTACORRIENTE"
+}
+
+### DELETE ACCOUNT
+DELETE http://localhost:4000/api/accounts/5f8c6a1c0a0e0c1b0d1d
+credentials: 'include'
