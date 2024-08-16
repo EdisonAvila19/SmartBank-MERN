@@ -10,7 +10,8 @@ import transactionRoutes from './src/routes/transaction.routes.js'
 const app = express()
 
 const allowedOrigins = [
-  'http://localhost:3000'
+  'http://localhost:3000',
+  'http://localhost:5173',
 ]
 
 const options = {

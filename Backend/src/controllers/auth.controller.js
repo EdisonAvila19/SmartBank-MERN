@@ -1,7 +1,9 @@
-import User from '../models/user.model.js'
 import bcrypt from 'bcryptjs'
-import { generateToken } from '../libs/jwt.js'
+
+import User from '../models/user.model.js'
 import Role from '../models/role.model.js'
+
+import { generateToken } from '../libs/jwt.js'
 
 export const login = async (req, res) => {
   console.log('login')
@@ -16,12 +18,14 @@ export const login = async (req, res) => {
 
     if (!isMatch) throw new Error('Invalid password')
     const token = await generateToken({id: user._id})
+
+    const role = await Role.findById(user.role)
     res.cookie('token', token)
     res.json({ 
       id: user._id,
       username: user.username,
       email: user.email,
-      role: user.role
+      role: role.type
      })
 
   } catch (error) {
@@ -45,12 +49,15 @@ export const register = async (req, res) => {
 
     const savedUser = await newUser.save()
     const token = await generateToken({id: savedUser._id})
+
+    const roleInfo = await Role.findById(savedUser.role)
+
     res.cookie('token', token)
     res.json({
       id: savedUser._id,
       username: savedUser.username,
       email: savedUser.email,
-      role: savedUser.role
+      role: roleInfo.type
     })
     
   } catch (error) {
