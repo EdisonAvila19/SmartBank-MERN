@@ -26,3 +26,9 @@ export async function logOutRequest () {
     credentials: 'include'
   })
 }
+
+export async function verifyTokenRequest () {
+  return await fetch(`${import.meta.env.VITE_API_URL}/verify`, {
+    credentials: 'include'
+  })
+}
