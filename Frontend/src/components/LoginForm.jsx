@@ -12,7 +12,7 @@ export default function LoginForm({ handleIsLogin }) {
   }
 
   const onSubmit = handleSubmit(authLogin)
-
+  
   return (  
       <form id="login" className="space-y-4" onSubmit={ onSubmit }>
         <input required type="text" placeholder="Nombre de usuario" autoComplete="username" className="w-full p-3 border"
