@@ -8,6 +8,16 @@ credentials: 'include'
   "password": "admin"
 }
 
+### LOGIN
+POST http://localhost:4000/api/login
+Content-Type: application/json
+credentials: 'include'
+
+{
+  "username": "User0",
+  "password": "user0"
+}
+
 ### REGISTER
 POST http://localhost:4000/api/register
 Content-Type: application/json
