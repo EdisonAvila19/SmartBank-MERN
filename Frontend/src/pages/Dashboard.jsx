@@ -13,12 +13,11 @@ export default function Dashboard() {
   const AccountRef = useRef(null)
 
   useCheckMenuOptions(window.location.pathname)
-  const { user } = useAuth()
   const { getAccounts, Accounts } = useAccount()
   const [account, setAccount] = useState(null)
 
   useEffect(() => {
-    getAccounts(user)
+    getAccounts()
   }, [])
   
   
@@ -48,14 +47,14 @@ export default function Dashboard() {
   return (
     <div className='flex flex-col items-center justify-center'>
       <section className='flex flex-col items-center max-w-full mx-auto mt-5 lg:items-start text-root-dark xl:w-5/6 xl:max-w-7xl'>
-        <select ref={AccountRef} onChange={ handleAccountChange } className='outline outline-1 p-3 lg:ml-32 xl:ml-0 mt-4 max-w-[80vw] w-96 lg:w-[17rem] xl:min-w-[475px] rounded-xl text-lg bg-transparent' id="accountsList">
+        <select ref={AccountRef} onChange={ handleAccountChange } className='outline outline-1 p-3 lg:ml-32 xl:ml-0 mt-4 max-w-[80vw] w-96 lg:w-[17rem] xl:min-w-[475px] rounded-xl text-lg bg-transparent' disabled={Accounts.length === 0}>
           {
             Accounts.length === 0 
               ? (<option value="">No tienes cuentas asociadas</option>) 
               : (
-                Accounts.map(account => {
-                  const hiddenAccount = account.id.slice(0, 4)
-                  return (<option key={account.id} value={account.id}>{hiddenAccount} - {account.accounttype}</option>)
+                Accounts.map(act => {
+                  let hiddenAccount = act.id.slice(-4)
+                  return (<option key={act.id} value={act.id}>{hiddenAccount} - {act.accounttype}</option>)
                 })
               )
           }
@@ -86,7 +85,7 @@ export default function Dashboard() {
                 {
                   account && 
                   (
-                    <Link to={account && `/transactions/:${account.id}`} target='_self' id='lnk_Movimientos' className='absolute text-lg bottom-5 right-5'>Ver resumen</Link>
+                    <Link to={account && `/transactions/${account.id}`} target='_self' id='lnk_Movimientos' className='absolute text-lg bottom-5 right-5'>Ver resumen</Link>
                   )
                 }
               </>)
