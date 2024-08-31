@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { useAuth } from '../hooks/useAuth'
 import { useAccount } from '../hooks/useAccount'
+import useCheckMenuOptions from '../hooks/useCheckMenu'
 import Promos from '../components/Promos'
 import Shortcuts from '../components/Shortcuts'
-import { HideSVG, ShowSVG } from '../components/Icons'
-import useCheckMenuOptions from '../hooks/useCheckMenu'
+import { AccountCard } from '../components/AccountCard'
 
 export default function Dashboard() {
   const [showBalance, setShowBalance] = useState(true)
@@ -16,11 +15,8 @@ export default function Dashboard() {
   const { getAccounts, Accounts } = useAccount()
   const [account, setAccount] = useState(null)
 
-  useEffect(() => {
-    getAccounts()
-  }, [])
-  
-  
+  const hasAccounts = Accounts.length === 0
+
   const handleAccountChange = () => {
     console.log('AccountRef', AccountRef.current.value)
     let currentAccount = [...Accounts].find(account => account.id === AccountRef.current.value)
@@ -38,6 +34,10 @@ export default function Dashboard() {
     console.log('handleBalance')
     setShowBalance(!showBalance)
   }
+
+  useEffect(() => {
+    getAccounts()
+  }, [])
   
   useEffect(() => {
     console.log('Accounts', Accounts)
@@ -47,9 +47,9 @@ export default function Dashboard() {
   return (
     <div className='flex flex-col items-center justify-center'>
       <section className='flex flex-col items-center max-w-full mx-auto mt-5 lg:items-start text-root-dark xl:w-5/6 xl:max-w-7xl'>
-        <select ref={AccountRef} onChange={ handleAccountChange } className='outline outline-1 p-3 lg:ml-32 xl:ml-0 mt-4 max-w-[80vw] w-96 lg:w-[17rem] xl:min-w-[475px] rounded-xl text-lg bg-transparent' disabled={Accounts.length === 0}>
+        <select ref={AccountRef} onChange={ handleAccountChange } className='outline outline-1 p-3 lg:ml-32 xl:ml-0 mt-4 max-w-[80vw] w-96 lg:w-[17rem] xl:min-w-[475px] rounded-xl text-lg bg-transparent' disabled={ hasAccounts }>
           {
-            Accounts.length === 0 
+            hasAccounts 
               ? (<option value="">No tienes cuentas asociadas</option>) 
               : (
                 Accounts.map(act => {
@@ -62,46 +62,12 @@ export default function Dashboard() {
         </select>
         <div className='flex flex-wrap justify-center lg:justify-between w-96 sm:w-full max-w-[80vw] xl:max-w-full lg:mx-32 xl:mx-0 py-4 gap-10'>
           <article id='tarjetaCuenta' className='relative bg-root-bg-card w-full sm:w-96 lg:w-[45%] xl:min-w-[475px] max-w-1/2 h-72 rounded-2xl p-5'>
-            {
-              Accounts.length !== 0
-              ? (<>
-                <h4 className='text-xl font-semibold'>Saldo en cuenta</h4>
-                <div className='flex flex-row justify-between gap-5'>
-                  <p className='text-4xl font-semibold sm:text-5xl'>$ { showBalance && account ? account.balance : '****' }</p>
-                  {
-                    showBalance 
-                      ? (
-                        <button id='saldo-activo' onClick={ handleBalance }>
-                          <HideSVG />
-                        </button>
-                      )
-                      : (
-                        <button id='saldo-oculto' className='w-9 sm:w-auto' onClick={ handleBalance }>
-                          <ShowSVG />
-                        </button>
-                      )
-                  }
-                </div>
-                {
-                  account && 
-                  (
-                    <Link to={account && `/transactions/${account.id}`} target='_self' id='lnk_Movimientos' className='absolute text-lg bottom-5 right-5'>Ver resumen</Link>
-                  )
-                }
-              </>)
-              : (
-                <div className='absolute w-1/2 h-auto text-center top-1/3 left-1/4' id='noCountMssg'>
-                  <p className='text-xl'>
-                    No tienes cuentas asociadas. Para crear una 
-                    <br/> 
-                    <Link className='font-bold text-blue-900' to="/new-account">haz click aquí</Link>
-                  </p>
-                </div>
-              )
-            }
-            
-            
-            
+            <AccountCard 
+              hasAccounts={ hasAccounts } 
+              handleBalance={ handleBalance } 
+              showBalance={ showBalance } 
+              account={ account } 
+            />
           </article>
           
           <article className='bg-root-bg-card w-96 lg:w-[45%] xl:min-w-[475px] h-72 rounded-2xl p-5 relative flex justify-center '>
