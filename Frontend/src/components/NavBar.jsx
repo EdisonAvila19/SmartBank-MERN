@@ -30,8 +30,8 @@ export default function NavBar() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-   }, [])
-
+  }, [])
+  
   return (
     <>
       <nav className="relative w-screen px-2 mx-auto sm:px-6 lg:px-8 bg-root-navBar">

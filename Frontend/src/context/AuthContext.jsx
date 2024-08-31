@@ -9,6 +9,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [menu, setMenu] = useState([])
+  const [path, setPath] = useState('/dashboard')
 
   const authLogin = async (user) => {
     console.log('login', user)
@@ -56,19 +57,26 @@ export function AuthProvider({ children }) {
     setMenu(menuOptions[user.role].filter(item => item.url !== path))
   }
 
+  const checkPath = (path) => {
+    console.log('checkPath', path)
+    setPath(path)
+  }
+
   // CheckLogin
-  useEffect(() => {
-    const checkLogin = async () => {
-      try {
-        const resp = await verifyTokenRequest()
-        const data = await resp.json()
-        if (resp.status !== 200) throw new Error(data.error)
-        setUser(data)
-        setIsAuthenticated(true)
-      } catch (error) {
-        console.error(error.message)
-      }
+  const checkLogin = async () => {
+    try {
+      const resp = await verifyTokenRequest()
+      const data = await resp.json()
+      if (resp.status !== 200) throw new Error(data.error)
+      console.log('checkLogin')
+      setUser(data)
+      setIsAuthenticated(true)
+    } catch (error) {
+      console.error(error.message)
     }
+  }
+
+  useEffect(() => {
     checkLogin()
   }, [])
 
@@ -77,10 +85,13 @@ export function AuthProvider({ children }) {
       user,
       isAuthenticated,
       menu,
+      path,
       authLogin,
       authRegister,
       authLogout,
-      checkMenuOptions
+      checkLogin,
+      checkMenuOptions,
+      checkPath
     }}>
       {children}
     </AuthContext.Provider>
