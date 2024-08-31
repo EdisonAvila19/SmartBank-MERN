@@ -77,6 +77,8 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
+    const currentPath = window.location.pathname === '/' ? '/dashboard' : window.location.pathname
+    checkPath(currentPath)
     checkLogin()
   }, [])
 
@@ -91,7 +93,6 @@ export function AuthProvider({ children }) {
       authLogout,
       checkLogin,
       checkMenuOptions,
-      checkPath
     }}>
       {children}
     </AuthContext.Provider>
