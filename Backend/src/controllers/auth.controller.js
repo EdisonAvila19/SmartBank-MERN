@@ -74,13 +74,13 @@ export const logout = (req, res) => {
 export const verifyToken = async (req, res) => {
   console.log('verifyToken')
   try {
-    const userFound = await User.findOne({_id: req.user.id})
+    const userFound = await User.findOne({_id: req.user.id}).populate('role')
     if (!userFound) throw new Error('User not found')
     res.json({
       id: userFound._id,
       username: userFound.username,
       email: userFound.email,
-      role: userFound.role
+      role: userFound.role.type
     })
   } catch (error) {
     res.status(500).json({ error: [error.message] })
