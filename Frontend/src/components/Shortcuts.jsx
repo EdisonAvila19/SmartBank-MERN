@@ -1,7 +1,12 @@
+import { useAccount } from '../hooks/useAccount'
+
 import { QRActivo, CashActivo, TransferActivo, PercentActivo, AddActivo } from '../components/Icons'
 import SmallCard from '../components/SmallCard'
 
 export default function Shortcuts() {
+
+  const { Accounts } = useAccount()
+  
   return (
     <section className='h-auto mx-32 my-4 text-root-dark xl:w-5/6 xl:max-w-7xl'>
         <h3 className='mb-4 text-2xl font-semibold'>Accesos rápidos</h3>
@@ -12,7 +17,7 @@ export default function Shortcuts() {
           <SmallCard label={'Préstamos'} url={'#prestamos'} active={false}>
             <CashActivo />
           </SmallCard>
-          <SmallCard label={'Transferencias'} url={'/new-transaction'} active={true}>
+          <SmallCard label={'Transferencias'} url={'/new-transaction'} active={Accounts.length !== 0}>
             <TransferActivo />
           </SmallCard>
           <SmallCard label={'Promociones'} url={'#promociones'} active={false}>

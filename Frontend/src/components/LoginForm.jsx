@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../hooks/useAuth'
 
 export default function LoginForm({ handleIsLogin }) {
   const { authLogin } = useAuth()

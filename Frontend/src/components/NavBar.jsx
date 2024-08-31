@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../hooks/useAuth'
 import { BurguerMenu, BurguerMenuClose, PerfilActivo } from './Icons'
 
 export default function NavBar() {

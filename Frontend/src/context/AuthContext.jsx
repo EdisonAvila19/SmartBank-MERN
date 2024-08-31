@@ -1,17 +1,9 @@
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { loginRequest, logOutRequest, registerRequest, verifyTokenRequest } from '../api/auth'
 import { menuOptions } from '../helpers/const'
 
-const AuthContext = createContext()
-
-export const useAuth = () => {
-  const context = useContext(AuthContext)
-  if (context === undefined) {
-    throw new Error('useAuth debe usarse dentro de un AuthProvider')
-  }
-  return context
-}
+export const AuthContext = createContext()
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
@@ -73,7 +65,6 @@ export function AuthProvider({ children }) {
         if (resp.status !== 200) throw new Error(data.error)
         setUser(data)
         setIsAuthenticated(true)
-        checkMenuOptions()
       } catch (error) {
         console.error(error.message)
       }

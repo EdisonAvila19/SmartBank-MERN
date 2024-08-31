@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useForm } from 'react-hook-form'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../hooks/useAuth'
 
 export default function RegisterForm({ handleIsLogin }) {
   const { authRegister } = useAuth()
