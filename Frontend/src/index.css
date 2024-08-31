@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .opacity-children-40 > *:not(#noCountMssg) {
+    @apply opacity-40
+  }
+
+  .inactive-card {
+    @apply opacity-50 pointer-events-none
+  }
+}
