@@ -1,3 +1,13 @@
+### LOGIN
+POST http://localhost:4000/api/login
+Content-Type: application/json
+credentials: 'include'
+
+{
+  "username": "User0",
+  "password": "user0"
+}
+
 ### GET ALL ACCOUNTS
 GET http://localhost:4000/api/accounts
 credentials: 'include'
