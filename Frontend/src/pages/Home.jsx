@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true)
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, path } = useAuth()
   const navigate =useNavigate()
 
   const handleIsLogin = () => {
@@ -15,7 +15,8 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if (isAuthenticated) navigate('/dashboard')
+    console.log('HOME')
+    if (isAuthenticated) navigate(path)
   }, [isAuthenticated])
 
   return (
