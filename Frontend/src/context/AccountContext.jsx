@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState } from 'react'
 import { createAccountRequest, getAccountsRequest } from '../api/account'
+import { createTransactionRequest } from '../api/transaction'
 
 export const AccountContext = createContext()
 
@@ -32,11 +33,24 @@ export function AccountProvider({ children }) {
     }
   }
 
+  const createTransaction = async (transaction) => {
+    console.log('createTransaction', transaction)
+    try {
+      const resp = await createTransactionRequest(transaction)
+      const data = await resp.json()
+      if (resp.status !== 200) throw data
+      return resp.status
+    } catch (error) {
+      return error
+    }
+  }
+
   return (
     <AccountContext.Provider value={{
       Accounts,
       getAccounts,
-      createAccount
+      createAccount,
+      createTransaction
     }}>
       { children }
     </AccountContext.Provider>

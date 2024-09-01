@@ -36,6 +36,8 @@ export async function createTransaction (req, res) {
     if (!destinationAccountFound) throw new Error('Destination account not found')
     destinationAccountBalance = destinationAccountFound.balance
 
+    const isValidAccounts = sourceAccountFound._id !== destinationAccountFound._id
+    if (!isValidAccounts) throw new Error('Source and destination accounts are the same')
     const isValidAmmount = sourceAccountBalance - req.body.amount >= 0
     if (!isValidAmmount) throw new Error('Not enough money for this transaction')
     
@@ -66,12 +68,6 @@ export async function createTransaction (req, res) {
     })
 
   } catch (error) {
-    const sourceAccountFound = await Account.findOne({_id: req.body.sourceAccount, user: req.user.id})
-    if (sourceAccountFound?.balance !== sourceAccountBalance) 
-      await Account.findOneAndUpdate({_id: req.body.sourceAccount, user: req.user.id}, {balance: sourceAccountBalance}, {new: true})
-    const destinationAccountFound = await Account.findOne({_id: req.body.destinationAccount})
-    if (destinationAccountFound?.balance !== destinationAccountBalance) 
-      await Account.findOneAndUpdate({_id: req.body.destinationAccount}, {balance: destinationAccountBalance}, {new: true})
     res.status(500).json({ error: [error.message] })
   }
 }

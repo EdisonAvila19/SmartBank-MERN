@@ -5,6 +5,8 @@ import { menuOptions } from '../helpers/const'
 
 export const AuthContext = createContext()
 
+const initialPath = window.location.pathname
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -77,7 +79,8 @@ export function AuthProvider({ children }) {
   }
 
   useEffect(() => {
-    const currentPath = window.location.pathname === '/' ? '/dashboard' : window.location.pathname
+    console.log({initialPath})
+    const currentPath = initialPath === '/' ? '/dashboard' : initialPath
     checkPath(currentPath)
     checkLogin()
   }, [])

@@ -19,7 +19,7 @@ export default function RegisterForm({ handleIsLogin }) {
         <input required type="text" placeholder="Nombre de usuario" className="w-full p-3 border" 
           {...register('username', { required: true })}
         />
-        { errors.nombre && <p className='text-red-500'>El nombre es requerido</p> }
+        { errors.username && <p className='text-red-500'>El nombre es requerido</p> }
         
         <input required type="date" placeholder="" id="regNac" className="w-full p-3 border " 
           {...register('birthdate', { required: true, validate: (value) => {
@@ -28,12 +28,12 @@ export default function RegisterForm({ handleIsLogin }) {
             return currentDate.getFullYear() - date.getFullYear() >= 18 ? true : 'Debes ser mayor de edad'
           } })}
         />
-        { errors.fechaNacimiento && <p className='text-red-500'>{errors.fechaNacimiento.message}</p> }
+        { errors.birthdate && <p className='text-red-500'>{errors.birthdate.message}</p> }
         
         <input required type="email" placeholder="Email" autoComplete="email" className="w-full p-3 border" 
           {...register('email', { required: true, pattern: /^\S+@\S+\.\S+$/i })}
         />
-        { errors.correo && <p className='text-red-500'>Un correo valido es requerido</p> }
+        { errors.email && <p className='text-red-500'>Un correo valido es requerido</p> }
         
         <input required type="password" placeholder="Contraseña" minLength="5" maxLength="10" autoComplete="current-password" className="w-full p-3 border " 
           {...register('password', { required: true, pattern: {
@@ -51,7 +51,8 @@ export default function RegisterForm({ handleIsLogin }) {
         <label htmlFor="agree" className="block">
           <input required type="checkbox" id="agree" 
             {...register('agree', { required: true })}
-          /> Acepto términos y condiciones 
+          /> Acepto términos y condiciones
+          { errors.agree && <p className='text-red-500'>Terminos y condiciones deben ser aceptados</p> }
         </label>
         <div className="flex-col justify-between text-sm">
           <span className="text-center">Ya tengo cuenta <a onClick={handleToLogin} className="text-blue-600 hover:cursor-pointer">Ingresa</a></span> 

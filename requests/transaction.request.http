@@ -1,3 +1,13 @@
+### LOGIN
+POST http://localhost:4000/api/login
+Content-Type: application/json
+credentials: 'include'
+
+{
+  "username": "User0",
+  "password": "user0"
+}
+
 ### Get all Transactions
 GET http://localhost:4000/api/transactions/66bd514452831fe7a0951f2f
 credentials: 'include'
@@ -20,8 +30,8 @@ Content-Type: application/json
 credentials: 'include'
 
 {
-  "sourceAccount": "66bd514452831fe7a0951f2f",
-  "destinationAccount": "66bd526155651232b666a39a",
+  "sourceAccount": "66d4c4cc34941fad7019d0eb",
+  "destinationAccount": "66d3a2bc36dc8c9ff2b06181",
   "amount": 50,
   "description": "Transaction description"
 }

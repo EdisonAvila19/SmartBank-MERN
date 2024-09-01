@@ -54,7 +54,7 @@ export default function Dashboard() {
               : (
                 Accounts.map(act => {
                   let hiddenAccount = act.id.slice(-4)
-                  return (<option key={act.id} value={act.id}>{hiddenAccount} - {act.accounttype}</option>)
+                  return (<option key={act.id} value={act.id}>****{hiddenAccount} - {act.accounttype}</option>)
                 })
               )
           }
